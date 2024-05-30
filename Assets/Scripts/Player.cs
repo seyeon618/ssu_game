@@ -16,20 +16,33 @@ public class Player : MonoBehaviour
 
     public GameObject _currentBlock;
 
+    public uint CalcFloorPerFrame = 30;
+    private uint _currentFrame = 0;
+
+    private int _currentFloor = 0;
+    public int CurrentFloor { get { return _currentFloor; } }
+
     // Start is called before the first frame update
     void Start()
     {
-        PickNextBlock();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         HandleKeyboardInput();
+
+        CalcFloor();
     }
 
     void HandleMove()
     {
+        if(_currentBlock == null)
+        {
+            return;
+        }
+
         _remainMoveDelay = Mathf.Max(0.0f, _remainMoveDelay - Time.deltaTime);
         if (_remainMoveDelay > 0.0f)
         {
@@ -88,4 +101,17 @@ public class Player : MonoBehaviour
         _currentBlock.tag = "ActiveBlock";
     }
 
+    public void CalcFloor()
+    {
+        if(++_currentFrame % CalcFloorPerFrame == 0)
+        {
+            int layerMask = LayerMask.GetMask("StackBlock");  // Player 레이어만 충돌 체크함
+            Vector2 p = transform.position;
+            var hit = Physics2D.BoxCast(p, new Vector2(6, 1), 0, Vector2.down, 100.0f, layerMask);
+            if(hit.collider != null)
+            {
+                _currentFloor = (int)(hit.point.y - 3);
+            }
+        }
+    }
 }

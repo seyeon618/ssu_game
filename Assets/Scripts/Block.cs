@@ -43,6 +43,7 @@ public class Block : MonoBehaviour
         _isControlByPlayer = false;
 
         transform.tag = "FreeBlock";
+        transform.gameObject.layer = LayerMask.NameToLayer("StackBlock");
 
         _player.PickNextBlock();
     }
