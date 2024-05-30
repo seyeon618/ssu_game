@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -42,6 +43,10 @@ public class TutorialManager : MonoBehaviour
         OnHandleInput();
         UpdateUI();
         
+        if(GamePlayer.CurrentFloor >= GoalFloor)
+        {
+            OnSucceed();
+        }
     }
 
     void OnGameStart()
@@ -49,6 +54,11 @@ public class TutorialManager : MonoBehaviour
         _isGameStarted = true;
 
         GamePlayer.PickNextBlock();
+    }
+
+    void OnSucceed()
+    {
+        SceneManager.LoadScene("Tutorial");
     }
 
     void UpdateUI()

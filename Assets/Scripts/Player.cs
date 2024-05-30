@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     public float MinX = -5.5f;
     public float MaxX = 5.5f;
+    public float StartY = 20.5f;
     public float MoveDelay = 0.05f;
     private float _remainMoveDelay = 0.0f;
     public float RotateDelay = 0.1f;
@@ -21,6 +22,10 @@ public class Player : MonoBehaviour
 
     private int _currentFloor = 0;
     public int CurrentFloor { get { return _currentFloor; } }
+    public int MarginDistance = 17;
+    private float _destPositionY = 0.0f;
+
+    bool _cheatBlock = false;
 
     // Start is called before the first frame update
     void Start()
@@ -83,8 +88,28 @@ public class Player : MonoBehaviour
         }
     }
 
+    void HandleCheat()
+    {
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            _cheatBlock = !_cheatBlock;
+        }
+    }
+
+    void HandleFunctionKey()
+    {
+        HandleCheat();
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     void HandleKeyboardInput()
     {
+        HandleFunctionKey();
+
         HandleMove();
 
         HandleRotate();
@@ -92,7 +117,14 @@ public class Player : MonoBehaviour
 
     GameObject PickBlock()
     {
-        return Blocks[Random.Range(0, Blocks.Length)];
+        if(_cheatBlock)
+        {
+            return Blocks[3];
+        }
+        else
+        {
+            return Blocks[Random.Range(0, Blocks.Length)];
+        }
     }
 
     public void PickNextBlock()
@@ -106,11 +138,26 @@ public class Player : MonoBehaviour
         if(++_currentFrame % CalcFloorPerFrame == 0)
         {
             int layerMask = LayerMask.GetMask("StackBlock");  // Player 레이어만 충돌 체크함
-            Vector2 p = transform.position;
-            var hit = Physics2D.BoxCast(p, new Vector2(6, 1), 0, Vector2.down, 100.0f, layerMask);
+            var hit = Physics2D.BoxCast(transform.position, new Vector2(6, 1), 0, Vector2.down, 100.0f, layerMask);
             if(hit.collider != null)
             {
                 _currentFloor = (int)(hit.point.y - 3);
+
+                _destPositionY = hit.point.y + MarginDistance;
+            }
+        }
+
+        if(Mathf.Abs(_destPositionY - transform.position.y) > 1.0f)
+        {
+            float moveY = 10 * Time.deltaTime;
+            if(_destPositionY < transform.position.y)
+            {
+                moveY = -moveY;
+            }
+            transform.Translate(new Vector3(0, moveY));
+            if(transform.position.y < StartY)
+            {
+                transform.position = new Vector3(transform.position.x, StartY);
             }
         }
     }
