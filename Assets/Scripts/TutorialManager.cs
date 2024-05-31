@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -55,7 +56,6 @@ public class TutorialManager : MonoBehaviour
 
         GamePlayer.PickNextBlock();
     }
-
     void OnSucceed()
     {
         SceneManager.LoadScene("Tutorial");

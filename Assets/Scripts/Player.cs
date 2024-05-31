@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +19,7 @@ public class Player : MonoBehaviour
     readonly private float MoveX = 1.0f;
 
     public GameObject _currentBlock;
+    public GameObject NextBlock { get; set; }
 
     public uint CalcFloorPerFrame = 30;
     private uint _currentFrame = 0;
@@ -27,11 +31,37 @@ public class Player : MonoBehaviour
 
     bool _cheatBlock = false;
 
+    // For UI
+    public UIDocument UI;
+    private VisualElement _blockPreview;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        _blockPreview = UI.rootVisualElement.Q<VisualElement>("BlockPreview");
 
+        //foreach(GameObject block in Blocks)
+        //{
+        //    SaveTexture(AssetPreview.GetAssetPreview(block));
+        //}
     }
+
+    private void SaveTexture(Texture2D texture)
+    {
+        byte[] bytes = texture.EncodeToPNG();
+        var dirPath = Application.dataPath + "/RenderOutput";
+        if (!System.IO.Directory.Exists(dirPath))
+        {
+            System.IO.Directory.CreateDirectory(dirPath);
+        }
+        System.IO.File.WriteAllBytes(dirPath + "/R_" + Random.Range(0, 100000) + ".png", bytes);
+        Debug.Log(bytes.Length / 1024 + "Kb was saved as: " + dirPath);
+#if UNITY_EDITOR
+        UnityEditor.AssetDatabase.Refresh();
+#endif
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -129,8 +159,17 @@ public class Player : MonoBehaviour
 
     public void PickNextBlock()
     {
-        _currentBlock = Instantiate<GameObject>(PickBlock(), transform.position, Quaternion.identity);
+        if(NextBlock == null)
+        {
+            NextBlock = PickBlock();
+        }
+
+        _currentBlock = Instantiate(NextBlock, transform.position, Quaternion.identity);
+        NextBlock = PickBlock();
+
         _currentBlock.tag = "ActiveBlock";
+
+        _blockPreview.style.backgroundImage = NextBlock.GetComponent<Block>().PreviewImage;
     }
 
     public void CalcFloor()

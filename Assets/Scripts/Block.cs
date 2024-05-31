@@ -13,6 +13,7 @@ public class Block : MonoBehaviour
     private Rigidbody2D _rigidbody = null;
     private Player _player = null;
 
+    public Texture2D PreviewImage = null;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -22,7 +23,7 @@ public class Block : MonoBehaviour
 
     void Start()
     {
-        
+        _rigidbody.mass = 0;
     }
 
     // Update is called once per frame
@@ -44,6 +45,7 @@ public class Block : MonoBehaviour
 
         transform.tag = "FreeBlock";
         transform.gameObject.layer = LayerMask.NameToLayer("StackBlock");
+        _rigidbody.mass = 5;
 
         _player.PickNextBlock();
     }
