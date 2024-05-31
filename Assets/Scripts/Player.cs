@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private float _remainMoveDelay = 0.0f;
     public float RotateDelay = 0.1f;
 
-    readonly private float MoveX = 1.0f;
+    readonly private float MoveX = 0.5f;
 
     public GameObject _currentBlock;
     public GameObject NextBlock { get; set; }
