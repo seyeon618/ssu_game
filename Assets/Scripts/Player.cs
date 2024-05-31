@@ -133,6 +133,10 @@ public class Player : MonoBehaviour
         {
             Application.Quit();
         }
+        if(Input.GetKeyDown(KeyCode.F5))
+        {
+            SceneManager.LoadScene("Tutorial");
+        }
     }
 
     void HandleKeyboardInput()
