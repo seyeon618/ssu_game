@@ -14,6 +14,10 @@ public class Block : MonoBehaviour
     private Player _player = null;
 
     public Texture2D PreviewImage = null;
+
+    [Header("Sounds")]
+    public AudioSource HitBlockSound;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -41,6 +45,8 @@ public class Block : MonoBehaviour
 
     public void FinishControl()
     {
+        HitBlockSound.Play();
+
         _isControlByPlayer = false;
 
         transform.tag = "FreeBlock";

@@ -35,7 +35,6 @@ public class Player : MonoBehaviour
     public UIDocument UI;
     private VisualElement _blockPreview;
 
-
     // Start is called before the first frame update
     void Start()
     {
