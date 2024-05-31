@@ -8,6 +8,11 @@ public class Block : MonoBehaviour
     public float FixedVelocity = 10.0f;
     public int RotateAngleCount = 0;
     private int _currentRotation = 0;
+    public int[] WidthByRotate = new int[2];
+    public float[] WidthByRotateOffsetX = new float[2];
+
+    private int CurrentWidth { get { return WidthByRotate[_currentRotation % WidthByRotate.Length]; } }
+    private float CurrentOffset { get { return WidthByRotateOffsetX[_currentRotation % WidthByRotateOffsetX.Length]; } }
 
     private bool _isControlByPlayer = true;
     private Rigidbody2D _rigidbody = null;
@@ -28,6 +33,7 @@ public class Block : MonoBehaviour
     void Start()
     {
         _rigidbody.mass = 0;
+        _player.SetIndicatorWidth(CurrentWidth, transform.position.x + CurrentOffset);
     }
 
     // Update is called once per frame
@@ -80,6 +86,8 @@ public class Block : MonoBehaviour
         }
         _currentRotation = (_currentRotation + 1) % RotateAngleCount;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90 * _currentRotation));
+
+        _player.SetIndicatorWidth(CurrentWidth, transform.position.x + CurrentOffset);
     }
 
     public void OnEscapeGameArea()

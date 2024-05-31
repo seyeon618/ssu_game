@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     public UIDocument UI;
     private VisualElement _blockPreview;
 
+    public GameObject Indicator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +93,7 @@ public class Player : MonoBehaviour
             {
                 isKeyProcessed = true;
                 _currentBlock.transform.Translate(new Vector3(-MoveX, 0), Space.World);
+                Indicator.transform.Translate(new Vector3(-MoveX, 0), Space.World);
             }
         }
         else if (Input.GetKey(KeyCode.RightArrow))
@@ -99,6 +102,7 @@ public class Player : MonoBehaviour
             {
                 isKeyProcessed = true;
                 _currentBlock.transform.Translate(new Vector3(MoveX, 0), Space.World);
+                Indicator.transform.Translate(new Vector3(MoveX, 0), Space.World);
             }
         }
 
@@ -165,6 +169,7 @@ public class Player : MonoBehaviour
         if(NextBlock == null)
         {
             NextBlock = PickBlock();
+            Indicator.SetActive(true);
         }
 
         _currentBlock = Instantiate(NextBlock, transform.position, Quaternion.identity);
@@ -173,6 +178,12 @@ public class Player : MonoBehaviour
         _currentBlock.tag = "ActiveBlock";
 
         _blockPreview.style.backgroundImage = NextBlock.GetComponent<Block>().PreviewImage;
+    }
+
+    public void SetIndicatorWidth(int width, float x)
+    {
+        Indicator.transform.localScale = new Vector3(0.055f * width, Indicator.transform.localScale.y, Indicator.transform.localScale.z);
+        Indicator.transform.position = new Vector3(x, Indicator.transform.position.y, Indicator.transform.position.z);
     }
 
     public void CalcFloor()

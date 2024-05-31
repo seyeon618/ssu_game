@@ -159,6 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixedVelocity: 5
   RotateAngleCount: 2
+  WidthByRotate: 0300000002000000
+  WidthByRotateOffsetX:
+  - 0
+  - -0.5
   PreviewImage: {fileID: 2800000, guid: 6d44b04f631626d45ab3a89616d9fc8d, type: 3}
   HitBlockSound: {fileID: 5562021170566028165}
 --- !u!1 &8169055823282078195
