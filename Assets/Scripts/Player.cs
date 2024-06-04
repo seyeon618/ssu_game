@@ -5,6 +5,14 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
+public enum StageType
+{
+    Tutorial,
+    Stage1,
+    Stage2,
+    Stage3
+}
+
 public class Player : MonoBehaviour
 {
     public GameObject[] Blocks;
@@ -31,23 +39,33 @@ public class Player : MonoBehaviour
 
     bool _cheatBlock = false;
 
+    public int MaxHP = 3;
+    private int _currentHP = 0;
+
     // For UI
     public UIDocument UI;
     private VisualElement _blockPreview;
+    private VisualElement _playerHUD;
+
+    public Texture2D HeartImage;
+    public Texture2D EmptyHeartImage;
 
     public GameObject Indicator;
+
+    public StageType Stage;
 
     // Start is called before the first frame update
     void Start()
     {
         _blockPreview = UI.rootVisualElement.Q<VisualElement>("BlockPreview");
-
+        _playerHUD = UI.rootVisualElement.Q<VisualElement>("PlayerHUD");
         //foreach(GameObject block in Blocks)
         //{
         //    SaveTexture(AssetPreview.GetAssetPreview(block));
         //}
-    }
 
+        SetupHP();
+    }
     private void SaveTexture(Texture2D texture)
     {
         byte[] bytes = texture.EncodeToPNG();
@@ -212,6 +230,42 @@ public class Player : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, StartY);
             }
+        }
+    }
+
+    private void SetupHP()
+    {
+        _currentHP = MaxHP;
+
+        var test = _playerHUD.Children();
+        foreach(var item in test)
+        {
+            Debug.Log(item);
+        }
+
+        for (int i = 0; i < _currentHP; ++i)
+        {
+            VisualElement visualElement = new VisualElement();
+            visualElement.name = $"HP_{i + 1}";
+            visualElement.style.backgroundImage = new StyleBackground(HeartImage);
+            visualElement.style.width = 120;
+            visualElement.style.height= 120;
+            visualElement.style.marginLeft = 10;
+            visualElement.style.marginRight = 10;
+            _playerHUD.Add(visualElement);
+        }
+    }
+
+    public void DecreaseHP()
+    {
+        int nowRemoveHeartIndex = _currentHP;
+        var childs = _playerHUD.Children();
+        List<VisualElement> elements = new List<VisualElement>(childs);
+        var removeElement = elements[nowRemoveHeartIndex - 1];
+        removeElement.style.backgroundImage = EmptyHeartImage;
+        if (--_currentHP <= 0)
+        {
+            // OnGameOver
         }
     }
 }

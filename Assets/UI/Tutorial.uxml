@@ -20,5 +20,6 @@
             </ui:VisualElement>
             <ui:VisualElement name="BlockPreview" style="position: absolute; top: 0; width: 70px; right: -75px; height: 70px; background-color: rgb(82, 82, 82);" />
         </ui:VisualElement>
+        <ui:VisualElement name="PlayerHUD" style="position: absolute; left: 10px; bottom: 10px; min-width: 400px; min-height: 80px; flex-direction: row;" />
     </ui:VisualElement>
 </ui:UXML>

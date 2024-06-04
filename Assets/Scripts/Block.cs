@@ -97,5 +97,7 @@ public class Block : MonoBehaviour
             FinishControl();
         }
         Destroy(gameObject);
+
+        _player.DecreaseHP();
     }
 }
