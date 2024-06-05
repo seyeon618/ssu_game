@@ -1,0 +1,144 @@
+/* Assets/UI/Ranking.uss */
+#MainContainer {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-image: resource('UI/background');
+}
+
+#RankingContainer {
+    position: relative;
+    top: auto;
+    width: 90%;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background-image: resource('UI/Ranking/ranking_background');
+    left: auto;
+}
+
+#TabContainer {
+    background-image: resource('UI/Ranking/stage1');
+    width: 90%;
+    height: 300px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: auto;
+    margin-bottom: initial;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 25px;
+    top: auto;
+}
+
+#RankingList {
+    position: relative;
+    top: auto;
+    width: 100%;
+    height: 258px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    background-image: resource('UI/Ranking/stage1');
+    display: flex;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.RankingItem {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+    background-color: rgba(230, 255, 230, 0);
+    margin-bottom: auto;
+    border-radius: 5px;
+    padding: 0 10px;
+    background-image: resource('UI/Ranking/ranking_item');
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin: 10px auto;
+    width: 90%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.RankNumber {
+    font-size: 24px;
+    color: rgb(0, 100, 0);
+    -unity-font-definition: initial;
+    -unity-font: resource('CooperFiveOpti-Black');
+    width: 50px;
+    align-items: stretch;
+    -unity-text-align: middle-center;
+}
+
+.PlayerName {
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+    -unity-font: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=5731770129ba5b3449fc21e1e5290dc1&type=3#NotInter-Regular');
+    -unity-font-definition: initial;
+    padding-top: 0;
+    padding-right: 12px;
+    padding-bottom: 0;
+    padding-left: 12px;
+    flex-grow: 1;
+}
+
+.TimeContainer {
+    flex-direction: row;
+    align-items: center;
+}
+
+.TimeLabel {
+    font-size: 18px;
+    color: rgb(0, 100, 0);
+    -unity-font: resource('NanumGothicBold');
+    width: 80px;
+}
+
+#Tab1, #Tab2, #Tab3 {
+    position: absolute;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 131px;
+    height: 42px;
+    top: 68px;
+    background-color: rgba(88, 88, 88, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#Tab1 {
+    left: 34px;
+}
+
+#Tab2 {
+    left: 167px;
+}
+
+#Tab3 {
+    left: 299px;
+}
