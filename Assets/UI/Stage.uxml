@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/StageUI.uss?fileID=7433441132597879392&amp;guid=a2b6de73b8df74c868f8e7dcf3e49b7a&amp;type=3#StageUI" />
+    <ui:VisualElement name="MainContainer" style="width: 100%; height: 100%; justify-content: center; align-items: center; background-image: resource(&apos;UI/background&apos;);">
+        <ui:VisualElement name="RankingContainer" style="position: relative; top: auto; width: 90%; height: 90%; justify-content: center; align-items: center; background-color: rgba(255, 255, 255, 0); border-radius: 20px; background-image: resource(&apos;UI/Stage/popup&apos;);">
+            <ui:VisualElement name="Stages" style="flex-direction: row; justify-content: space-around; align-items: center; width: 80%; height: 250px; margin-top: 70px;">
+                <ui:VisualElement name="Stage1" class="stageButton bg_inclear">
+                    <ui:VisualElement name="Stamp" class="stamp hidden" />
+                    <ui:VisualElement name="Text" style="background-image: resource(&apos;UI/Stage/stage1&apos;); width: 100%; height: 100%; -unity-background-scale-mode: stretch-to-fill;" />
+                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="-unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; display: none;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Stage2" class="stageButton bg_inclear">
+                    <ui:VisualElement name="Stamp" class="stamp hidden" />
+                    <ui:VisualElement name="Text" style="background-image: resource(&apos;UI/Stage/stage2&apos;); width: 100%; height: 100%; -unity-background-scale-mode: stretch-to-fill;" />
+                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="top: 126px; left: 7px; -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Stage3" class="stageButton bg_inclear">
+                    <ui:VisualElement name="Stamp" class="stamp hidden" />
+                    <ui:VisualElement name="Text" style="background-image: resource(&apos;UI/Stage/stage3&apos;); width: 100%; height: 100%; -unity-background-scale-mode: stretch-to-fill;" />
+                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="-unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ComingSoon" class="stageButton bg_inclear">
+                    <ui:VisualElement name="Stamp" class="stamp hidden" />
+                    <ui:VisualElement style="background-image: resource(&apos;UI/Stage/coming_soon&apos;); width: 100%; height: 70%; -unity-background-scale-mode: stretch-to-fill;" />
+                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="-unity-text-align: middle-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

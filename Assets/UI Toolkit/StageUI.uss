@@ -1,0 +1,73 @@
+#MainContainer {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-image: resource('UI/background');
+}
+
+#RankingContainer {
+    position: relative;
+    top: auto;
+    width: 90%;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 20px;
+    background-image: resource('UI/Stage/popup');
+}
+
+#Stages {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    height: 250px;
+    margin-top: 70px;
+}
+
+.stageButton {
+    width: 120px;
+    height: 120px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#Text {
+    margin-top:15px;
+}
+
+.bg_clear {
+    background-image: resource('UI/Stage/bg_clear');
+}
+
+.bg_inclear {
+    background-image: resource('UI/Stage/bg_inclear');
+}
+
+.stamp {
+    position: absolute;
+    background-image: resource('UI/Stage/stamp');
+    width: 50px;
+    height: 50px;
+    top: auto;
+    left: auto;
+    right: 0;
+    bottom: 0;
+}
+.completionDate {
+    position: absolute;
+    top: 120px;
+    left: 0px;
+    color: rgba(82, 82, 82, 255);
+    font-size: 12px;
+    white-space: pre-wrap;
+    width: 120px;
+    height: 100px;
+}
+.hidden {
+    display: none;
+}
+
