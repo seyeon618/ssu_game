@@ -1,0 +1,45 @@
+/* StoryUI.uss */
+
+#MainContainer {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#Title {
+    -unity-font: resource('CooperFiveOpti-Black');
+    -unity-font-style: bold;
+    font-size: 60px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#StoryText {
+    -unity-font: resource('NanumGothicBold');
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#NextButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    width: 80%;
+    margin-top: 20px;
+}
+
+#NextButton {
+    width: 100px;
+    height: 50px;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}

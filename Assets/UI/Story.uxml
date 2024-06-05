@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/StoryUI.uss?fileID=7433441132597879392&amp;guid=8f6cdcc3450eb4a2092f3fc6fb42c150&amp;type=3#StoryUI" />
+    <ui:VisualElement name="MainContainer" style="background-image: resource(&apos;UI/background&apos;); width: 100%; height: 100%;">
+        <ui:Label text="STORY" name="Title" style="-unity-font: resource(&apos;CooperFiveOpti-Black&apos;); -unity-font-definition: initial; font-size: 60px; color: rgb(255, 255, 255); -unity-text-align: middle-center;" />
+        <ui:Label text="타워를 잘 쌓는 사람은 예로부터 큰 뜻을 이룰 수 있다고 하였다.&#10;빠르고 단단하게 타워를 쌓을 수 있는 자를 선별하여 큰 상을 내릴 예정이니,&#10;누구든지 도전하여 타워 쌓는 솜씨를 뽐내보아라!&#10;" name="StoryText" style="-unity-font: resource(&apos;NanumGothicBold&apos;); -unity-font-definition: initial; font-size: 18px; color: rgb(255, 255, 255); -unity-text-align: middle-center; white-space: normal;" />
+        <ui:VisualElement name="NextButtonContainer" style="background-color: rgba(0, 0, 0, 0); -unity-text-align: upper-right; flex-direction: row;">
+            <ui:VisualElement name="NextButton" style="background-image: resource(&apos;UI/arrow&apos;); width: 68px; height: 58px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
