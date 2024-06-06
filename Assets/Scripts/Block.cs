@@ -100,16 +100,20 @@ public class Block : MonoBehaviour
         _player.DecreaseHP();
     }
 
-    public void AddBlockEffect(Sprite sprite)
+    public void AddBlockEffect(Sprite sprite, float scale)
     {
         for(int i = 0; i < transform.childCount; ++i)
         {
             var childTransform = transform.GetChild(i);
+            if(childTransform.name.Contains("Square_") == false)
+            {
+                continue;
+            }
             var childObject = new GameObject("BlockEffect", typeof(SpriteRenderer));
             childObject.transform.parent = childTransform;
             childObject.GetComponent<SpriteRenderer>().sprite = sprite;
             childObject.transform.localPosition = new Vector3(0, 0, -1);
-            childObject.transform.localScale = new Vector3(1.2f, 1.2f, 1.0f);
+            childObject.transform.localScale = new Vector3(scale, scale, 1.0f);
         }
     }
 }

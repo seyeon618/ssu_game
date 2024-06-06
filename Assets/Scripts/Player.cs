@@ -74,6 +74,12 @@ public class Player : MonoBehaviour
     private bool _isFogCreated = false;
     public AudioSource FogSound;
 
+    [Header("스테이지2")]
+    public int IceProbability = 250000;
+    public Sprite IceBlockSprite = null;
+    public PhysicsMaterial2D IceMaterial;
+    public AudioSource IceSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -254,9 +260,20 @@ public class Player : MonoBehaviour
                     int prob = Random.Range(1, 1000000);
                     if(prob - ForceRotationProbability <= 0)
                     {
-                        _currentBlock.GetComponent<Block>().AddBlockEffect(ForceRotationBlockSprite);
+                        _currentBlock.GetComponent<Block>().AddBlockEffect(ForceRotationBlockSprite, 1.2f);
                         _isRotatable = false;
                         _forceRotationCoroutine = StartCoroutine(BlockForceRotation(ForceRotationDelay));
+                    }
+                }
+                break;
+            case StageType.Stage2:
+                {
+                    int prob = Random.Range(1, 1000000);
+                    if (prob - IceProbability <= 0)
+                    {
+                        _currentBlock.GetComponent<Block>().AddBlockEffect(IceBlockSprite, 0.4f);
+                        _currentBlock.GetComponent<Rigidbody2D>().sharedMaterial = IceMaterial;
+                        IceSound.Play();
                     }
                 }
                 break;
