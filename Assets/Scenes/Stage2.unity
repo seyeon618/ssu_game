@@ -993,7 +993,7 @@ MonoBehaviour:
   _currentBlock: {fileID: 0}
   CalcFloorPerFrame: 30
   MarginDistance: 10
-  MaxHP: 3
+  MaxHP: 5
   UI: {fileID: 1015742628}
   HeartImage: {fileID: 2800000, guid: 33381c6d6d8b72842b53c9f797a9a15c, type: 3}
   EmptyHeartImage: {fileID: 2800000, guid: 6ffc5a42cfb75984696bd72e50e947ba, type: 3}
