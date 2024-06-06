@@ -281,7 +281,7 @@ public class Player : MonoBehaviour
             var hit = Physics2D.BoxCast(transform.position, new Vector2(6, 1), 0, Vector2.down, 100.0f, layerMask);
             if(hit.collider != null)
             {
-                _currentFloor = (int)(hit.point.y - 3);
+                _currentFloor = (int)(hit.point.y - 3 + 0.1f); // 오차 무시하기위해 0.1 더함
 
                 _destPositionY = hit.point.y + MarginDistance;
             }
