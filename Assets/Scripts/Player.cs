@@ -123,10 +123,35 @@ public class Player : MonoBehaviour
                 Indicator.transform.Translate(new Vector3(MoveX, 0), Space.World);
             }
         }
+        else if(Input.GetKeyDown(KeyCode.Space))
+        {
+            MoveDownDirect(_currentBlock);
+        }
 
         if (isKeyProcessed)
         {
             _remainMoveDelay = MoveDelay;
+        }
+    }
+
+    void MoveDownDirect(GameObject targetBlock)
+    {
+        var collider = _currentBlock.GetComponent<Collider2D>();
+        if(collider is BoxCollider2D)
+        {
+            var block = targetBlock.GetComponent<Block>();
+            var boxCollider = collider as BoxCollider2D;
+            int layerMask = LayerMask.GetMask("StackBlock");  // Player 레이어만 충돌 체크함
+            //var cols = Physics2D.BoxCastAll(boxCollider.bounds.center, boxCollider.size, 0, Vector2.down, 100.0f);
+            //var cols2 = Physics2D.RaycastAll(boxCollider.bounds.center, Vector2.down, 100.0f, layerMask);
+            //Debug.DrawRay(boxCollider.bounds.center, Vector2.down * 100.0f, Color.red, 5.0f);
+            var hit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.size, 0f, Vector2.down, 50.0f, layerMask);
+            Debug.DrawRay(_currentBlock.transform.position, Vector3.down * 100.0f, Color.red, 5.0f);
+            if (hit.collider != null)
+            {
+                var targetDistance = hit.distance - (block.FixedVelocity * (Time.fixedDeltaTime * 3)); // 3프레임 이전 위치
+                targetBlock.transform.Translate(Vector3.down * targetDistance, Space.World);
+            }
         }
     }
 
