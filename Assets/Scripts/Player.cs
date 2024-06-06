@@ -66,6 +66,7 @@ public class Player : MonoBehaviour
     public Sprite ForceRotationBlockSprite = null;
     private bool _isRotatable = true;
     private Coroutine _forceRotationCoroutine;
+    public AudioSource ForceRotationSound;
 
     // Start is called before the first frame update
     void Start()
@@ -340,5 +341,7 @@ public class Player : MonoBehaviour
         {
             _currentBlock.GetComponent<Block>().RotateNext();
         }
+
+        ForceRotationSound.Play();
     }
 }
