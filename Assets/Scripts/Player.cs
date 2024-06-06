@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     public float BlockVelocityIncrease = 1.0f;
     private int _blockCount = 0;
 
-    [Header("스테이지1")]
+    [Header("스테이지1_강제회전")]
     [Tooltip("확률은 백만분율")]
     public int ForceRotationProbability = 250000;
     public float ForceRotationDelay = 0.5f;
@@ -67,6 +67,11 @@ public class Player : MonoBehaviour
     private bool _isRotatable = true;
     private Coroutine _forceRotationCoroutine;
     public AudioSource ForceRotationSound;
+    [Header("스테이지1_안개")]
+    public int InvokeStartFogFloor = 27;
+    public GameObject FogObject;
+    public Transform FogPosition;
+    private bool _isFogCreated = false;
 
     // Start is called before the first frame update
     void Start()
@@ -280,6 +285,22 @@ public class Player : MonoBehaviour
 
                 _destPositionY = hit.point.y + MarginDistance;
             }
+
+            switch(Stage)
+            {
+                case StageType.Stage1:
+                    {
+                        if(_currentFloor >= InvokeStartFogFloor)
+                        {
+                            if(_isFogCreated == false)
+                            {
+                                StartCoroutine(FogAppear(Instantiate(FogObject, FogPosition.position, Quaternion.identity)));
+                                _isFogCreated = true;
+                            }
+                        }
+                    }
+                    break;
+            }
         }
 
         if(Mathf.Abs(_destPositionY - transform.position.y) > 1.0f)
@@ -343,5 +364,19 @@ public class Player : MonoBehaviour
         }
 
         ForceRotationSound.Play();
+    }
+
+    IEnumerator FogAppear(GameObject fogObject)
+    {
+        for(int i = 0; i <= 10; ++i)
+        {
+            var renderers = fogObject.GetComponentsInChildren<SpriteRenderer>();
+            foreach (var renderer in renderers)
+            {
+                renderer.color = new Color(1, 1, 1, Mathf.Lerp(0, 1, i / 10.0f));
+            }
+
+            yield return new WaitForSeconds(0.07f);
+        }
     }
 }
