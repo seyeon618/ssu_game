@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
     public GameObject FogObject;
     public Transform FogPosition;
     private bool _isFogCreated = false;
+    public AudioSource FogSound;
 
     // Start is called before the first frame update
     void Start()
@@ -295,6 +296,7 @@ public class Player : MonoBehaviour
                             if(_isFogCreated == false)
                             {
                                 StartCoroutine(FogAppear(Instantiate(FogObject, FogPosition.position, Quaternion.identity)));
+                                FogSound.Play();
                                 _isFogCreated = true;
                             }
                         }
