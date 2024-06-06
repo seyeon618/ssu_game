@@ -5,7 +5,6 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float FixedVelocity = 10.0f;
     public int RotateAngleCount = 0;
     private int _currentRotation = 0;
     public int[] WidthByRotate = new int[2];
@@ -45,7 +44,7 @@ public class Block : MonoBehaviour
     {
         if (_isControlByPlayer)
         {
-            _rigidbody.velocity = new Vector2(0.0f, -FixedVelocity);
+            _rigidbody.velocity = new Vector2(0.0f, -_player.BlockFixedVelocity);
         }
     }
 
@@ -99,5 +98,18 @@ public class Block : MonoBehaviour
         Destroy(gameObject);
 
         _player.DecreaseHP();
+    }
+
+    public void AddBlockEffect(Sprite sprite)
+    {
+        for(int i = 0; i < transform.childCount; ++i)
+        {
+            var childTransform = transform.GetChild(i);
+            var childObject = new GameObject("BlockEffect", typeof(SpriteRenderer));
+            childObject.transform.parent = childTransform;
+            childObject.GetComponent<SpriteRenderer>().sprite = sprite;
+            childObject.transform.localPosition = new Vector3(0, 0, -1);
+            childObject.transform.localScale = new Vector3(1.2f, 1.2f, 1.0f);
+        }
     }
 }

@@ -54,6 +54,19 @@ public class Player : MonoBehaviour
 
     public StageType Stage;
 
+    public Transform BlockSpawnPosition;
+    public float BlockFixedVelocity = 5.0f;
+    public float BlockVelocityIncrease = 1.0f;
+    private int _blockCount = 0;
+
+    [Header("스테이지1")]
+    [Tooltip("확률은 백만분율")]
+    public int ForceRotationProbability = 250000;
+    public float ForceRotationDelay = 0.5f;
+    public Sprite ForceRotationBlockSprite = null;
+    private bool _isRotatable = true;
+    private Coroutine _forceRotationCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -144,13 +157,18 @@ public class Player : MonoBehaviour
         List<RaycastHit2D> hits = new List<RaycastHit2D>();
         if(collider.Cast(Vector2.down, contactFilter2D, hits, 100.0f) > 0)
         {
-            var targetDistance = hits[0].distance - (block.FixedVelocity * (Time.fixedDeltaTime * 3)); // 3프레임 이전 위치
+            var targetDistance = hits[0].distance - (-BlockFixedVelocity * (Time.fixedDeltaTime * 3)); // 3프레임 이전 위치
             targetBlock.transform.Translate(Vector3.down * targetDistance, Space.World);
         }
     }
 
     void HandleRotate()
     {
+        if(_isRotatable == false) // 블록 효과에 의해 회전 불가
+        {
+            return;
+        }
+
         // 회전은 키 누르고 있을 때 반응하지 않는 것이 의도.
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -203,18 +221,44 @@ public class Player : MonoBehaviour
 
     public void PickNextBlock()
     {
+        if(_forceRotationCoroutine != null)
+        {
+            StopCoroutine(_forceRotationCoroutine);
+            _forceRotationCoroutine = null;
+        }
+        _isRotatable = true; // 블럭을 바꾸는 순간 다시 활성화
+
         if(NextBlock == null)
         {
             NextBlock = PickBlock();
             Indicator.SetActive(true);
         }
 
-        _currentBlock = Instantiate(NextBlock, transform.position, Quaternion.identity);
+        _currentBlock = Instantiate(NextBlock, BlockSpawnPosition.position, Quaternion.identity);
         NextBlock = PickBlock();
 
         _currentBlock.tag = "ActiveBlock";
-
         _blockPreview.style.backgroundImage = NextBlock.GetComponent<Block>().PreviewImage;
+
+        switch(Stage)
+        {
+            case StageType.Stage1:
+                {
+                    int prob = Random.Range(1, 1000000);
+                    if(prob - ForceRotationProbability <= 0)
+                    {
+                        _currentBlock.GetComponent<Block>().AddBlockEffect(ForceRotationBlockSprite);
+                        _isRotatable = false;
+                        _forceRotationCoroutine = StartCoroutine(BlockForceRotation(ForceRotationDelay));
+                    }
+                }
+                break;
+        }
+
+        if (++_blockCount % 10 == 0)
+        {
+            BlockFixedVelocity += BlockVelocityIncrease;
+        }
     }
 
     public void SetIndicatorWidth(int width, float x)
@@ -285,6 +329,16 @@ public class Player : MonoBehaviour
         if (--_currentHP <= 0)
         {
             // OnGameOver
+        }
+    }
+
+    IEnumerator BlockForceRotation(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        for(int i = 0; i < Random.Range(0, 3); ++i)
+        {
+            _currentBlock.GetComponent<Block>().RotateNext();
         }
     }
 }
