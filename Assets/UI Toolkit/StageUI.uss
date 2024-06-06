@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0);
-    border-radius: 20px;
+    border-radius: 40px;
     background-image: resource('UI/Stage/popup');
 }
 
@@ -23,20 +23,20 @@
     justify-content: space-around;
     align-items: center;
     width: 80%;
-    height: 250px;
-    margin-top: 70px;
+    height: 500px;
+    margin-top: 140px;
 }
 
 .stageButton {
-    width: 120px;
-    height: 120px;
+    width: 240px;
+    height: 240px;
     justify-content: center;
     align-items: center;
     position: relative;
 }
 
 #Text {
-    margin-top:15px;
+    margin-top:30px;
 }
 
 .bg_clear {
@@ -50,8 +50,8 @@
 .stamp {
     position: absolute;
     background-image: resource('UI/Stage/stamp');
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     top: auto;
     left: auto;
     right: 0;
@@ -59,13 +59,13 @@
 }
 .completionDate {
     position: absolute;
-    top: 120px;
+    top: 240px;
     left: 0px;
     color: rgba(82, 82, 82, 255);
-    font-size: 12px;
+    font-size: 24px;
     white-space: pre-wrap;
-    width: 120px;
-    height: 100px;
+    width: 240px;
+    height: 200px;
 }
 .hidden {
     display: none;
