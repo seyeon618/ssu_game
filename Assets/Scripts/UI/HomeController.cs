@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 using System.Collections;
 using UnityEngine.UIElements.Experimental;
 
-public class AnimationController : MonoBehaviour
+public class HomeController : MonoBehaviour
 {
     public UIDocument uiDocument;
     private VisualElement titleLabel;

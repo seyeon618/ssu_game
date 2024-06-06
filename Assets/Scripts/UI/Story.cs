@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Story : MonoBehaviour
 {
     public UIDocument uiDocument;
     private VisualElement storyText;
-    private VisualElement nextButton;
+    private Button nextButton;
 
     private void OnEnable()
     {
         var root = uiDocument.rootVisualElement;
 
         storyText = root.Q<VisualElement>("StoryText");
-        nextButton = root.Q<VisualElement>("NextButton");
+        nextButton = root.Q<Button>("NextButton");
 
         storyText.style.opacity = 0;
         nextButton.style.opacity = 0;
@@ -24,6 +25,15 @@ public class Story : MonoBehaviour
             // 스토리 텍스트가 모두 표시된 후 버튼을 표시합니다.
             nextButton.style.opacity = 1f;
         }));
+        if (nextButton != null)
+        {
+            // NextButton 클릭 이벤트 연결
+            nextButton.clicked += OnNextButtonClick;
+        }
+        else
+        {
+            Debug.LogError("NextButton not found in the UXML file.");
+        }
 
     }
 
@@ -34,6 +44,15 @@ public class Story : MonoBehaviour
             storyText.style.opacity = 1f;
             nextButton.style.opacity = 1f;
             StopAllCoroutines(); // 모든 코루틴을 멈춤
+        }
+    }
+
+    void OnDisable()
+    {
+        if (nextButton != null)
+        {
+            // NextButton 클릭 이벤트 해제
+            nextButton.clicked -= OnNextButtonClick;
         }
     }
 
@@ -50,5 +69,12 @@ public class Story : MonoBehaviour
 
         element.style.opacity = 1f;
         onComplete?.Invoke(); // 애니메이션이 끝난 후 콜백 호출
+    }
+    private void OnNextButtonClick()
+    {
+        // NextButton 클릭 시 실행할 로직
+        Debug.Log("NextButton clicked");
+        // 예: 다음 씬으로 전환
+        SceneManager.LoadScene("MainMenu");
     }
 }

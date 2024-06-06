@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -64,5 +65,6 @@ public class MenuController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         button.transform.scale = new Vector3(1f, 1f, 1f);
         // 여기에 화면 전환 로직을 추가하세요.
+        SceneManager.LoadScene(button.name.Replace("Button", ""));
     }
 }
