@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Ranking : MonoBehaviour
@@ -9,6 +10,7 @@ public class Ranking : MonoBehaviour
     private Button tab1;
     private Button tab2;
     private Button tab3;
+    private Button prevButton;
 
     private void OnEnable()
     {
@@ -19,6 +21,7 @@ public class Ranking : MonoBehaviour
         tab1 = rootVisualElement.Q<Button>("Tab1");
         tab2 = rootVisualElement.Q<Button>("Tab2");
         tab3 = rootVisualElement.Q<Button>("Tab3");
+        prevButton = rootVisualElement.Q<Button>("PrevButton");
 
         tab1.clicked += () => SwitchTab(1);
         tab2.clicked += () => SwitchTab(2);
@@ -26,6 +29,15 @@ public class Ranking : MonoBehaviour
 
         // Default to Stage 1
         SwitchTab(1);
+
+        if (prevButton != null)
+        {
+            prevButton.clicked += OnPrevButtonClick;
+        }
+        else
+        {
+            Debug.LogError("PrevButton not found in UXML");
+        }
     }
 
     private void SwitchTab(int stage)
@@ -72,5 +84,10 @@ public class Ranking : MonoBehaviour
 
             rankingList.Add(rankingItem);
         }
+    }
+    private void OnPrevButtonClick()
+    {
+        // 이전 씬으로 이동
+        SceneManager.LoadScene("MainMenu");
     }
 }

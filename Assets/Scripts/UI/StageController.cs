@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class StageController : MonoBehaviour
@@ -7,6 +8,7 @@ public class StageController : MonoBehaviour
     private VisualElement stage1;
     private VisualElement stage2;
     private VisualElement stage3;
+    private Button prevButton;
 
     private void OnEnable()
     {
@@ -25,6 +27,7 @@ public class StageController : MonoBehaviour
         stage1 = root.Q<VisualElement>("Stage1");
         stage2 = root.Q<VisualElement>("Stage2");
         stage3 = root.Q<VisualElement>("Stage3");
+        prevButton = root.Q<Button>("PrevButton");
 
         if (stage1 == null || stage2 == null || stage3 == null)
         {
@@ -32,6 +35,15 @@ public class StageController : MonoBehaviour
             return;
         }
 
+
+        if (prevButton != null)
+        {
+            prevButton.clicked += OnPrevButtonClick;
+        }
+        else
+        {
+            Debug.LogError("PrevButton not found in UXML");
+        }
         UpdateStageStatus();
     }
 
@@ -69,5 +81,10 @@ public class StageController : MonoBehaviour
                 completionDateLabel.style.display = DisplayStyle.Flex;
             }
         }
+    }
+    private void OnPrevButtonClick()
+    {
+        // 이전 씬으로 이동
+        SceneManager.LoadScene("MainMenu");
     }
 }
