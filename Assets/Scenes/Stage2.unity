@@ -1010,7 +1010,7 @@ MonoBehaviour:
   FogObject: {fileID: 863302236567543224, guid: b29ca8ea39716af47a501b5773e155d3, type: 3}
   FogPosition: {fileID: 1886398818}
   FogSound: {fileID: 0}
-  IceProbability: 250000
+  IceProbability: 400000
   IceBlockSprite: {fileID: 21300000, guid: 0d97f7be4e7b9bc41a85aa9cdb44965b, type: 3}
   IceMaterial: {fileID: 6200000, guid: 73c92900685969744aa8959bc4877616, type: 2}
   IceSound: {fileID: 836847272}
