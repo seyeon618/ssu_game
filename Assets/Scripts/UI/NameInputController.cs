@@ -25,15 +25,15 @@ public class NameInputController : MonoBehaviour
     {
         if (evt.keyCode == KeyCode.Return)
         {
-            var nameInput = uiDocument.rootVisualElement.Q<TextField>("NameInput");
-            RankingManager.Instance.SetUserName(nameInput.value);
-
             LoadMainMenuScene();
         }
     }
 
     private void LoadMainMenuScene()
     {
+        var nameInput = uiDocument.rootVisualElement.Q<TextField>("NameInput");
+        RankingManager.Instance.SetUserName(nameInput.value);
+
         SceneManager.LoadScene("MainMenu");
     }
 }
