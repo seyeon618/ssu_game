@@ -43,6 +43,8 @@ public class StageController : MonoBehaviour
         if (prevButton != null)
         {
             prevButton.clicked += OnPrevButtonClick;
+            prevButton.RegisterCallback<MouseEnterEvent>(OnButtonHover);
+            prevButton.RegisterCallback<MouseLeaveEvent>(OnButtonLeave);
         }
         else
         {
@@ -53,16 +55,19 @@ public class StageController : MonoBehaviour
 
     private void Stage1_clicked()
     {
+        UISoundManager.Instance.PlayGameStart();
         SceneManager.LoadScene("Stage1");
     }
 
     private void Stage2_clicked()
     {
+        UISoundManager.Instance.PlayGameStart();
         SceneManager.LoadScene("Stage2");
     }
 
     private void Stage3_clicked()
     {
+        UISoundManager.Instance.PlayGameStart();
         SceneManager.LoadScene("Stage3");
     }
 
@@ -105,5 +110,15 @@ public class StageController : MonoBehaviour
     {
         // 이전 씬으로 이동
         SceneManager.LoadScene("MainMenu");
+    }
+    private void OnButtonHover(MouseEnterEvent evt)
+    {
+        UISoundManager.Instance.PlayButtonHover();
+        prevButton.style.scale = new Scale(new Vector2(1.2f, 1.2f));
+    }
+
+    private void OnButtonLeave(MouseLeaveEvent evt)
+    {
+        prevButton.style.scale = new Scale(new Vector2(1, 1));
     }
 }

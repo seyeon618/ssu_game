@@ -33,6 +33,8 @@ public class Ranking : MonoBehaviour
         if (prevButton != null)
         {
             prevButton.clicked += OnPrevButtonClick;
+            prevButton.RegisterCallback<MouseEnterEvent>(OnButtonHover);
+            prevButton.RegisterCallback<MouseLeaveEvent>(OnButtonLeave);
         }
         else
         {
@@ -42,6 +44,7 @@ public class Ranking : MonoBehaviour
 
     private void SwitchTab(int stage)
     {
+        UISoundManager.Instance.PlayButtonClick();
         // Change background image based on the stage
         switch (stage)
         {
@@ -87,7 +90,18 @@ public class Ranking : MonoBehaviour
     }
     private void OnPrevButtonClick()
     {
+        UISoundManager.Instance.PlayButtonClick();
         // 이전 씬으로 이동
         SceneManager.LoadScene("MainMenu");
+    }
+    private void OnButtonHover(MouseEnterEvent evt)
+    {
+        UISoundManager.Instance.PlayButtonHover();
+        prevButton.style.scale = new Scale(new Vector2(1.2f, 1.2f));
+    }
+
+    private void OnButtonLeave(MouseLeaveEvent evt)
+    {
+        prevButton.style.scale = new Scale(new Vector2(1, 1));
     }
 }

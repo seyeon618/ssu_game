@@ -29,6 +29,8 @@ public class Story : MonoBehaviour
         {
             // NextButton 클릭 이벤트 연결
             nextButton.clicked += OnNextButtonClick;
+            nextButton.RegisterCallback<MouseEnterEvent>(OnButtonHover);
+            nextButton.RegisterCallback<MouseLeaveEvent>(OnButtonLeave);
         }
         else
         {
@@ -73,8 +75,18 @@ public class Story : MonoBehaviour
     private void OnNextButtonClick()
     {
         // NextButton 클릭 시 실행할 로직
-        Debug.Log("NextButton clicked");
+        UISoundManager.Instance.PlayButtonClick();
         // 예: 다음 씬으로 전환
         SceneManager.LoadScene("Name");
+    }
+    private void OnButtonHover(MouseEnterEvent evt)
+    {
+        UISoundManager.Instance.PlayButtonHover();
+        nextButton.style.scale = new Scale(new Vector2(1.2f, 1.2f));
+    }
+
+    private void OnButtonLeave(MouseLeaveEvent evt)
+    {
+        nextButton.style.scale = new Scale(new Vector2(1,1));
     }
 }

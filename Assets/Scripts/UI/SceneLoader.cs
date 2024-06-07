@@ -14,6 +14,7 @@ public class SceneLoader : MonoBehaviour
 
     void LoadStoryScene()
     {
+        UISoundManager.Instance.PlayGameStart();
         // "Story" 씬을 로드합니다.
         SceneManager.LoadScene("Story");
     }
