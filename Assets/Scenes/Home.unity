@@ -229,6 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiDocument: {fileID: 1063622404}
+  outlineWidth: 5
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &2109814093
 GameObject:
   m_ObjectHideFlags: 0

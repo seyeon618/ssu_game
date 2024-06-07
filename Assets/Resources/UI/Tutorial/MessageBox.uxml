@@ -9,12 +9,9 @@
     <ui:VisualElement name="3" class="tutoBox hidden">
         <ui:VisualElement style="background-image: resource(&apos;UI/Tutorial/3&apos;); width: 354px; height: 248px; position: absolute; top: 298px; left: 1240px;" />
     </ui:VisualElement>
-    <ui:VisualElement name="5" class="tutoBox hidden">
-        <ui:VisualElement style="background-image: resource(&apos;UI/Tutorial/5&apos;); width: 390px; height: 235px; position: absolute; top: 631px; left: 1132px;" />
-    </ui:VisualElement>
-    <ui:VisualElement name="7" class="tutoBox hidden" style="display: flex;" />
-    <ui:VisualElement name="13" class="tutoBox hidden" style="display: none; top: -4px; left: 0;">
+    <ui:VisualElement name="5" class="tutoBox hidden" />
+    <ui:VisualElement name="13" class="tutoBox hidden">
         <ui:VisualElement style="background-image: resource(&apos;UI/Tutorial/13&apos;); width: 362px; height: 242px; position: absolute; top: 540px; left: 80px;" />
     </ui:VisualElement>
-    <ui:VisualElement name="17" class="tutoBox" style="top: -14px; left: -2px; align-items: center; justify-content: center;" />
+    <ui:VisualElement name="17" class="tutoBox" />
 </ui:UXML>

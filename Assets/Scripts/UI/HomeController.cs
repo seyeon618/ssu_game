@@ -14,6 +14,13 @@ public class HomeController : MonoBehaviour
     private VisualElement orangeShape;
     private VisualElement purpleShape;
 
+    private Color currentOutlineColor;
+    private float changeInterval = 0.5f;
+    private float timer;
+
+    public float outlineWidth = 5f;
+    public Color outlineColor = Color.black;
+
     private void OnEnable()
     {
         var root = uiDocument.rootVisualElement;
@@ -32,6 +39,22 @@ public class HomeController : MonoBehaviour
         StartCoroutine(StartShakingWithDelay(greenShape, 12f, 0.1f, 0.1f));
         StartCoroutine(StartShakingWithDelay(orangeShape, 8f, 0.1f, 0.15f));
         StartCoroutine(StartShakingWithDelay(purpleShape, 15f, 0.1f, 0.2f));
+
+        currentOutlineColor = outlineColor;  // 초기 아웃라인 색상 설정
+
+        // 텍스트 아웃라인 설정
+        titleLabel.style.unityTextOutlineWidth = outlineWidth;
+        titleLabel.style.unityTextOutlineColor = currentOutlineColor;
+    }
+
+    void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer >= changeInterval)
+        {
+            timer = 0;
+            ChangeOutlineColor();
+        }
     }
 
     private void StartBlinking(VisualElement element)
@@ -90,5 +113,11 @@ public class HomeController : MonoBehaviour
                 animReturn.OnCompleted(() => StartShaking(element, amplitude, duration));
             });
         });
+    }
+    void ChangeOutlineColor()
+    {
+        changeInterval = Random.Range(0.3f, 1f);
+        currentOutlineColor = new Color(Random.value, Random.value, Random.value);
+        titleLabel.style.unityTextOutlineColor = currentOutlineColor;
     }
 }

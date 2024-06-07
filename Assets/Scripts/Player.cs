@@ -335,7 +335,6 @@ public class Player : MonoBehaviour
                         case 1:
                         case 3:
                         case 5:
-                        case 7:
                         case 13:
                         case 16:
                         case 17:
