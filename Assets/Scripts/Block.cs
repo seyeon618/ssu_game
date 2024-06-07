@@ -22,6 +22,8 @@ public class Block : MonoBehaviour
     [Header("Sounds")]
     public AudioSource HitBlockSound;
 
+    public bool IsVineBlock { get; set; }
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -71,6 +73,15 @@ public class Block : MonoBehaviour
                     if(_isControlByPlayer)
                     {
                         FinishControl();
+                        if(IsVineBlock)
+                        {
+                            if(collision.gameObject.tag == "FreeBlock")
+                            {
+                                gameObject.AddComponent<FixedJoint2D>().connectedBody = collision.rigidbody;
+                                collision.gameObject.GetComponent<Block>().AddBlockEffect(_player.VineBlockSprite, 1.2f);
+                                _player.VineSound.Play();
+                            }
+                        }
                     }
                 }
                 break;

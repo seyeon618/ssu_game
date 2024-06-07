@@ -80,6 +80,11 @@ public class Player : MonoBehaviour
     public PhysicsMaterial2D IceMaterial;
     public AudioSource IceSound;
 
+    [Header("스테이지3")]
+    public int VineProbability = 200000;
+    public Sprite VineBlockSprite = null;
+    public AudioSource VineSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -274,6 +279,16 @@ public class Player : MonoBehaviour
                         _currentBlock.GetComponent<Block>().AddBlockEffect(IceBlockSprite, 0.4f);
                         _currentBlock.GetComponent<Rigidbody2D>().sharedMaterial = IceMaterial;
                         IceSound.Play();
+                    }
+                }
+                break;
+            case StageType.Stage3:
+                {
+                    int prob = Random.Range(1, 1000000);
+                    if(prob - VineProbability <= 0)
+                    {
+                        _currentBlock.GetComponent<Block>().AddBlockEffect(VineBlockSprite, 1.2f);
+                        _currentBlock.GetComponent<Block>().IsVineBlock = true;
                     }
                 }
                 break;
