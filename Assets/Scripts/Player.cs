@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
         //    SaveTexture(AssetPreview.GetAssetPreview(block));
         //}
 
-        SetupHP();
+        SetupHP(MaxHP);
 
         CurrentVelocity = BlockFixedVelocity;
     }
@@ -230,6 +230,10 @@ public class Player : MonoBehaviour
         {
             _cheatBlock = !_cheatBlock;
         }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            SetupHP(_currentHP + 1);
+        }
     }
 
     void HandleFunctionKey()
@@ -242,7 +246,7 @@ public class Player : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.F5))
         {
-            SceneManager.LoadScene("Tutorial");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
@@ -434,15 +438,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SetupHP()
+    private void SetupHP(int hp)
     {
-        _currentHP = MaxHP;
+        _currentHP = hp;
 
-        var test = _playerHUD.Children();
-        foreach(var item in test)
-        {
-            Debug.Log(item);
-        }
+        _playerHUD.Clear();
 
         for (int i = 0; i < _currentHP; ++i)
         {
