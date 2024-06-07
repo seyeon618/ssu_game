@@ -165,11 +165,13 @@ public class StageManager : MonoBehaviour
 
     public void OnStageClear()
     {
+        int elapsedTime = ((int)_elapsedTime) - WaitCount;
+        RankingManager.Instance.UpdateRanking(GamePlayer.Stage, elapsedTime);
         GamePlayer.OnStageClear();
-        StartCoroutine(RunUIStageClear());
+        StartCoroutine(RunUIStageClear(elapsedTime));
     }
 
-    IEnumerator RunUIStageClear()
+    IEnumerator RunUIStageClear(int elapsedTime)
     {
         UI.rootVisualElement.Q<VisualElement>("GameUI").style.opacity = new StyleFloat(0.0f);
 
@@ -185,7 +187,7 @@ public class StageManager : MonoBehaviour
         stageClearVisualElement.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
 
         var elapsedText = UI.rootVisualElement.Q<Label>("TimeText");
-        elapsedText.text = ((int)_elapsedTime).ToString();
+        elapsedText.text = elapsedTime.ToString();
 
         var maintextElement = stageClearVisualElement.Q<VisualElement>("StageClearText");
         var stageClearEffect = UI.rootVisualElement.Q<VisualElement>("StageClearEffect");
