@@ -321,8 +321,31 @@ public class Player : MonoBehaviour
         _currentBlock.tag = "ActiveBlock";
         _blockPreview.style.backgroundImage = NextBlock.GetComponent<Block>().PreviewImage;
 
-        switch(Stage)
+        if (++_blockCount % 10 == 0)
         {
+            _increasedVelocity += BlockVelocityIncrease;
+        }
+
+        switch (Stage)
+        {
+            case StageType.Tutorial:
+                {
+                    switch (_blockCount)
+                    {
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                        case 13:
+                        case 16:
+                        case 17:
+                            messageController.ShowMessage(_blockCount);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
             case StageType.Stage1:
                 {
                     int prob = Random.Range(1, 1000000);
@@ -380,25 +403,6 @@ public class Player : MonoBehaviour
                         }
                     }
                 }
-                break;
-        }
-
-        if (++_blockCount % 10 == 0)
-        {
-            _increasedVelocity += BlockVelocityIncrease;
-        }
-        switch (_blockCount)
-        {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 13:
-            case 16:
-            case 17:
-                messageController.ShowMessage(_blockCount);
-                break;
-            default:
                 break;
         }
     }

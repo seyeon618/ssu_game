@@ -188,9 +188,10 @@ public class StageManager : MonoBehaviour
         elapsedText.text = ((int)_elapsedTime).ToString();
 
         var maintextElement = stageClearVisualElement.Q<VisualElement>("StageClearText");
+        var stageClearEffect = UI.rootVisualElement.Q<VisualElement>("StageClearEffect");
         for (int i = 0; i < 120; ++i)
         {
-            maintextElement.style.opacity = new StyleFloat(Mathf.Lerp(0, 1, i / 120.0f));
+            stageClearEffect.style.opacity = maintextElement.style.opacity = new StyleFloat(Mathf.Lerp(0, 1, i / 120.0f));
             yield return new WaitForFixedUpdate();
         }
 

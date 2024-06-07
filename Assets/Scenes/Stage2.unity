@@ -468,6 +468,11 @@ MonoBehaviour:
   GoalFloor: 30
   GamePlayer: {fileID: 1210632933}
   UI: {fileID: 1015742628}
+  StageClearEffectSprite:
+  - {fileID: 2800000, guid: ce8ea8813ebec414e8d961ede0f3d3f5, type: 3}
+  - {fileID: 2800000, guid: 2c6d960fae34bca42b35b8777891d470, type: 3}
+  - {fileID: 2800000, guid: cd183de49e235df4bb795aa9229b3cb1, type: 3}
+  StageClearEffectChangeDelay: 0.2
 --- !u!1 &681484935
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,6 +990,7 @@ MonoBehaviour:
   - {fileID: 6701604375190404004, guid: 34dbc89e4c09ae648ba49ea4db526c51, type: 3}
   - {fileID: 6701604375190404004, guid: 15ddf718c14bc6245820b8ce35984618, type: 3}
   - {fileID: 6701604375190404004, guid: 89c40d0d9c6212f40b39e9d6db48cbac, type: 3}
+  messageController: {fileID: 0}
   MinX: -5.5
   MaxX: 5.5
   StartY: 20.5
