@@ -368,7 +368,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ae2d4081a343cdb40926cb14d448a56a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7aad8b71a88a76a43920932dda022db0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.228
   m_Pitch: 1
@@ -1024,6 +1024,7 @@ MonoBehaviour:
   BubblePopSprite: {fileID: 21300000, guid: d109edbe7c71f254a9fcbfcf326c9b64, type: 3}
   BubbleSound: {fileID: 1750396735}
   BubblePopSound: {fileID: 1825806585}
+  BubbleMinDelay: 1.5
   BubbleMaxDelay: 4
   BubbleFixedVelocity: 2.5
 --- !u!1 &1485225976

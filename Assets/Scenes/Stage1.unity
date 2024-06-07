@@ -367,7 +367,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ae2d4081a343cdb40926cb14d448a56a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9ee3d7499ecd10d41b9904644128f96b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.228
   m_Pitch: 1
@@ -1142,6 +1142,18 @@ MonoBehaviour:
   IceProbability: 250000
   IceBlockSprite: {fileID: 0}
   IceMaterial: {fileID: 0}
+  IceSound: {fileID: 0}
+  VineProbability: 200000
+  VineBlockSprite: {fileID: 0}
+  VineSound: {fileID: 0}
+  BubbleProbability: 200000
+  BubbleObject: {fileID: 0}
+  BubblePopSprite: {fileID: 0}
+  BubbleSound: {fileID: 0}
+  BubblePopSound: {fileID: 0}
+  BubbleMinDelay: 1.5
+  BubbleMaxDelay: 4
+  BubbleFixedVelocity: 3
 --- !u!1 &1485225976
 GameObject:
   m_ObjectHideFlags: 0
