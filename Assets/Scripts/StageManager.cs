@@ -21,6 +21,13 @@ public class StageManager : MonoBehaviour
     private Label _currentFloorLabel;
 
     private bool _isRestartable = false;
+    private bool _isStageClear = false;
+
+    public List<Texture2D> StageClearEffectSprite = new List<Texture2D>();
+    int _stageClearEffectSpriteIndex = 0;
+    public float StageClearEffectChangeDelay = 0.2f;
+    private float _stageClearEffectRemainDelay = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +54,11 @@ public class StageManager : MonoBehaviour
 
         if (GamePlayer.CurrentFloor >= GoalFloor)
         {
-            OnSucceed();
+            if(_isStageClear == false)
+            {
+                OnStageClear();
+                _isStageClear = true;
+            }
         }
     }
 
@@ -57,13 +68,22 @@ public class StageManager : MonoBehaviour
 
         GamePlayer.PickNextBlock();
     }
-    void OnSucceed()
-    {
-        SceneManager.LoadScene("Tutorial");
-    }
 
     void UpdateUI()
     {
+        if(_isStageClear)
+        {
+            _stageClearEffectRemainDelay -= Time.deltaTime;
+            if(_stageClearEffectRemainDelay <= 0)
+            {
+                _stageClearEffectSpriteIndex = (_stageClearEffectSpriteIndex + 1) % StageClearEffectSprite.Count;
+                _stageClearEffectRemainDelay = StageClearEffectChangeDelay;
+
+                var stageClearEffect = UI.rootVisualElement.Q<VisualElement>("StageClearEffect");
+                stageClearEffect.style.backgroundImage = StageClearEffectSprite[_stageClearEffectSpriteIndex];
+            }
+        }
+
         if (_isStarted == false)
         {
             return;
@@ -139,6 +159,42 @@ public class StageManager : MonoBehaviour
             maintextElement.style.opacity = new StyleFloat(Mathf.Lerp(0, 1, i / 120.0f));
             yield return new WaitForFixedUpdate();
         }
+
+        _isRestartable = true;
+    }
+
+    public void OnStageClear()
+    {
+        GamePlayer.OnStageClear();
+        StartCoroutine(RunUIStageClear());
+    }
+
+    IEnumerator RunUIStageClear()
+    {
+        UI.rootVisualElement.Q<VisualElement>("GameUI").style.opacity = new StyleFloat(0.0f);
+
+        for (int i = 0; i < 210; ++i)
+        {
+            //List<VisualElement> elements = new List<VisualElement>(UI.rootVisualElement.Children());
+            //elements[0].style.backgroundColor = new StyleColor(new Color(0, 0, 0, i));
+            UI.rootVisualElement.style.backgroundColor = new StyleColor(new Color(0, 0, 0, Mathf.Lerp(0, 0.8f, i / 210.0f)));
+            yield return new WaitForFixedUpdate();
+        }
+
+        var stageClearVisualElement = UI.rootVisualElement.Q<VisualElement>("StageClear");
+        stageClearVisualElement.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+
+        var elapsedText = UI.rootVisualElement.Q<Label>("TimeText");
+        elapsedText.text = ((int)_elapsedTime).ToString();
+
+        var maintextElement = stageClearVisualElement.Q<VisualElement>("StageClearText");
+        for (int i = 0; i < 120; ++i)
+        {
+            maintextElement.style.opacity = new StyleFloat(Mathf.Lerp(0, 1, i / 120.0f));
+            yield return new WaitForFixedUpdate();
+        }
+
+        _stageClearEffectRemainDelay = StageClearEffectChangeDelay;
 
         _isRestartable = true;
     }

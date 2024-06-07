@@ -489,13 +489,17 @@ public class Player : MonoBehaviour
             if(_isGameOver == false)
             {
                 _isGameOver = true;
-
                 Destroy(_currentBlock);
                 
-
                 GameObject.Find("StageManager").GetComponent<StageManager>().OnGameOver();
             }
         }
+    }
+
+    public void OnStageClear()
+    {
+        _isGameOver = true;
+        Destroy(_currentBlock);
     }
 
     IEnumerator BlockForceRotation(float delay)

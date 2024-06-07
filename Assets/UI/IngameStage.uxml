@@ -27,4 +27,15 @@
             <ui:Label text="Retry" display-tooltip-when-elided="true" style="font-size: 80px; position: absolute; bottom: -150px; align-items: auto; justify-content: center; -unity-text-outline-color: rgb(255, 255, 255); -unity-font: resource(&apos;CooperFiveOpti-Black&apos;); -unity-font-definition: initial; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="StageClear" style="position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; -unity-font-definition: initial; -unity-font: resource(&apos;NanumGothicBold&apos;); -unity-font-style: bold; display: none;">
+        <ui:VisualElement name="StageClearEffect" style="background-image: resource(&apos;StageClearEffect_0&apos;); width: 85%; height: 750px; position: absolute;" />
+        <ui:VisualElement name="StageClearText" style="background-image: resource(&apos;StageClear&apos;); width: 60%; height: 250px; align-items: center;">
+            <ui:VisualElement style="position: absolute; bottom: -150px; flex-direction: row; align-items: flex-start;">
+                <ui:Label text="TIME :  " display-tooltip-when-elided="true" style="font-size: 60px; color: rgb(255, 255, 255);" />
+                <ui:Label text="Label" display-tooltip-when-elided="true" name="TimeText" style="font-size: 60px; color: rgb(255, 255, 255); margin-right: 10px; margin-left: 10px;" />
+                <ui:Label text="Sec" display-tooltip-when-elided="true" style="font-size: 60px; color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
+            <ui:VisualElement />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
