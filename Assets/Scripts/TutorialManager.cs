@@ -58,7 +58,7 @@ public class TutorialManager : MonoBehaviour
     }
     void OnSucceed()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("MainMenu");
     }
 
     void UpdateUI()

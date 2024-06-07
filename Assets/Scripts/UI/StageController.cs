@@ -5,9 +5,9 @@ using UnityEngine.UIElements;
 public class StageController : MonoBehaviour
 {
     private VisualElement root;
-    private VisualElement stage1;
-    private VisualElement stage2;
-    private VisualElement stage3;
+    private Button stage1;
+    private Button stage2;
+    private Button stage3;
     private Button prevButton;
 
     private void OnEnable()
@@ -24,9 +24,9 @@ public class StageController : MonoBehaviour
             return;
         }
 
-        stage1 = root.Q<VisualElement>("Stage1");
-        stage2 = root.Q<VisualElement>("Stage2");
-        stage3 = root.Q<VisualElement>("Stage3");
+        stage1 = root.Q<Button>("Stage1Button");
+        stage2 = root.Q<Button>("Stage2Button");
+        stage3 = root.Q<Button>("Stage3Button");
         prevButton = root.Q<Button>("PrevButton");
 
         if (stage1 == null || stage2 == null || stage3 == null)
@@ -34,6 +34,10 @@ public class StageController : MonoBehaviour
             Debug.LogError("One or more stage elements are null. Please check the UXML file for correct naming.");
             return;
         }
+
+        stage1.clicked += Stage1_clicked;
+        stage2.clicked += Stage2_clicked;
+        stage3.clicked += Stage3_clicked;
 
 
         if (prevButton != null)
@@ -45,6 +49,21 @@ public class StageController : MonoBehaviour
             Debug.LogError("PrevButton not found in UXML");
         }
         UpdateStageStatus();
+    }
+
+    private void Stage1_clicked()
+    {
+        SceneManager.LoadScene("Stage1");
+    }
+
+    private void Stage2_clicked()
+    {
+        SceneManager.LoadScene("Stage2");
+    }
+
+    private void Stage3_clicked()
+    {
+        SceneManager.LoadScene("Stage3");
     }
 
     private void UpdateStageStatus()
