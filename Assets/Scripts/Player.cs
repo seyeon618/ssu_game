@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
 {
     public GameObject[] Blocks;
 
+    // Tutorial
+    public MessageController messageController;
+
     public float MinX = -5.5f;
     public float MaxX = 5.5f;
     public float StartY = 20.5f;
@@ -383,6 +386,20 @@ public class Player : MonoBehaviour
         if (++_blockCount % 10 == 0)
         {
             _increasedVelocity += BlockVelocityIncrease;
+        }
+        switch (_blockCount)
+        {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 13:
+            case 16:
+            case 17:
+                messageController.ShowMessage(_blockCount);
+                break;
+            default:
+                break;
         }
     }
 

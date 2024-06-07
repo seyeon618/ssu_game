@@ -939,6 +939,7 @@ MonoBehaviour:
   - {fileID: 6701604375190404004, guid: 34dbc89e4c09ae648ba49ea4db526c51, type: 3}
   - {fileID: 6701604375190404004, guid: 15ddf718c14bc6245820b8ce35984618, type: 3}
   - {fileID: 6701604375190404004, guid: 89c40d0d9c6212f40b39e9d6db48cbac, type: 3}
+  messageController: {fileID: 1703214216}
   MinX: -5.5
   MaxX: 5.5
   StartY: 20.5
@@ -959,6 +960,26 @@ MonoBehaviour:
   ForceRotationProbability: 250000
   ForceRotationDelay: 0.5
   ForceRotationBlockSprite: {fileID: 0}
+  ForceRotationSound: {fileID: 0}
+  InvokeStartFogFloor: 27
+  FogObject: {fileID: 0}
+  FogPosition: {fileID: 0}
+  FogSound: {fileID: 0}
+  IceProbability: 250000
+  IceBlockSprite: {fileID: 0}
+  IceMaterial: {fileID: 0}
+  IceSound: {fileID: 0}
+  VineProbability: 200000
+  VineBlockSprite: {fileID: 0}
+  VineSound: {fileID: 0}
+  BubbleProbability: 200000
+  BubbleObject: {fileID: 0}
+  BubblePopSprite: {fileID: 0}
+  BubbleSound: {fileID: 0}
+  BubblePopSound: {fileID: 0}
+  BubbleMinDelay: 1.5
+  BubbleMaxDelay: 4
+  BubbleFixedVelocity: 3
 --- !u!1 &1440485174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,6 +1375,67 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6, y: 3}
   m_EdgeRadius: 0
+--- !u!1 &1703214215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703214217}
+  - component: {fileID: 1703214216}
+  - component: {fileID: 1703214218}
+  m_Layer: 0
+  m_Name: MessageController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1703214216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703214215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f35baaf1cda462cb3750e99c662b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1703214217
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703214215}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.3481468, y: 22.958744, z: 156.63898}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1703214218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703214215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 18ffdb55bf6b7764fa8989a605a4dbac, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 0}
+  m_SortingOrder: 1
 --- !u!1 &2018678958
 GameObject:
   m_ObjectHideFlags: 0
