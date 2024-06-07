@@ -57,33 +57,53 @@ public class Player : MonoBehaviour
     public Transform BlockSpawnPosition;
     public float BlockFixedVelocity = 5.0f;
     public float BlockVelocityIncrease = 1.0f;
+    private float _increasedVelocity = 0.0f;
     private int _blockCount = 0;
+    private float _currentVelocity = 0.0f;
+    public float CurrentVelocity { get { return _currentVelocity + _increasedVelocity; } set { _currentVelocity = value; } }
 
-    [Header("½ºÅ×ÀÌÁö1_°­Á¦È¸Àü")]
-    [Tooltip("È®·üÀº ¹é¸¸ºĞÀ²")]
+    private bool _isMovable = true;
+
+    [Header("ìŠ¤í…Œì´ì§€1_ê°•ì œíšŒì „")]
+    [Tooltip("í™•ë¥ ì€ ë°±ë§Œë¶„ìœ¨")]
     public int ForceRotationProbability = 250000;
     public float ForceRotationDelay = 0.5f;
     public Sprite ForceRotationBlockSprite = null;
     private bool _isRotatable = true;
     private Coroutine _forceRotationCoroutine;
     public AudioSource ForceRotationSound;
-    [Header("½ºÅ×ÀÌÁö1_¾È°³")]
+    [Header("ìŠ¤í…Œì´ì§€1_ì•ˆê°œ")]
     public int InvokeStartFogFloor = 27;
     public GameObject FogObject;
     public Transform FogPosition;
     private bool _isFogCreated = false;
     public AudioSource FogSound;
 
-    [Header("½ºÅ×ÀÌÁö2")]
+    [Header("ìŠ¤í…Œì´ì§€2")]
     public int IceProbability = 250000;
     public Sprite IceBlockSprite = null;
     public PhysicsMaterial2D IceMaterial;
     public AudioSource IceSound;
 
-    [Header("½ºÅ×ÀÌÁö3")]
+    [Header("ìŠ¤í…Œì´ì§€3")]
     public int VineProbability = 200000;
     public Sprite VineBlockSprite = null;
     public AudioSource VineSound;
+
+    [Header("ìŠ¤í…Œì´ì§€3_ë¹„ëˆ„ë°©ìš¸")]
+    public int BubbleProbability = 200000;
+    public GameObject BubbleObject = null;
+    public Sprite BubblePopSprite = null;
+    public AudioSource BubbleSound;
+    public AudioSource BubblePopSound;
+    public float BubbleMinDelay = 1.5f;
+    public float BubbleMaxDelay = 4.0f;
+    public float BubbleFixedVelocity = 3.0f;
+    private float _bubbleMoveXPos = 0;
+    private float _bubbleStartXPos = 0;
+    private float _bubbleElapsed = 0;
+    private float _bubbleMoveDelay = 0;
+    private bool _isBubble = false;
 
     // Start is called before the first frame update
     void Start()
@@ -96,6 +116,8 @@ public class Player : MonoBehaviour
         //}
 
         SetupHP();
+
+        CurrentVelocity = BlockFixedVelocity;
     }
     private void SaveTexture(Texture2D texture)
     {
@@ -118,12 +140,18 @@ public class Player : MonoBehaviour
     {
         HandleKeyboardInput();
 
+        OnEffect();
+
         CalcFloor();
     }
 
     void HandleMove()
     {
         if(_currentBlock == null)
+        {
+            return;
+        }
+        if(_isMovable == false)
         {
             return;
         }
@@ -169,25 +197,25 @@ public class Player : MonoBehaviour
     {
         var block = targetBlock.GetComponent<Block>();
         var collider = targetBlock.GetComponent<Collider2D>();
-        int layerMask = LayerMask.GetMask("StackBlock");  // Player ·¹ÀÌ¾î¸¸ Ãæµ¹ Ã¼Å©ÇÔ
+        int layerMask = LayerMask.GetMask("StackBlock");  // Player ë ˆì´ì–´ë§Œ ì¶©ëŒ ì²´í¬í•¨
 
         ContactFilter2D contactFilter2D = new ContactFilter2D() { layerMask = layerMask, useLayerMask = true };
         List<RaycastHit2D> hits = new List<RaycastHit2D>();
         if(collider.Cast(Vector2.down, contactFilter2D, hits, 100.0f) > 0)
         {
-            var targetDistance = hits[0].distance - (-BlockFixedVelocity * (Time.fixedDeltaTime * 3)); // 3ÇÁ·¹ÀÓ ÀÌÀü À§Ä¡
+            var targetDistance = hits[0].distance - (-CurrentVelocity * (Time.fixedDeltaTime * 3)); // 3í”„ë ˆì„ ì´ì „ ìœ„ì¹˜
             targetBlock.transform.Translate(Vector3.down * targetDistance, Space.World);
         }
     }
 
     void HandleRotate()
     {
-        if(_isRotatable == false) // ºí·Ï È¿°ú¿¡ ÀÇÇØ È¸Àü ºÒ°¡
+        if(_isRotatable == false) // ë¸”ë¡ íš¨ê³¼ì— ì˜í•´ íšŒì „ ë¶ˆê°€
         {
             return;
         }
 
-        // È¸ÀüÀº Å° ´©¸£°í ÀÖÀ» ¶§ ¹İÀÀÇÏÁö ¾Ê´Â °ÍÀÌ ÀÇµµ.
+        // íšŒì „ì€ í‚¤ ëˆ„ë¥´ê³  ìˆì„ ë•Œ ë°˜ì‘í•˜ì§€ ì•ŠëŠ” ê²ƒì´ ì˜ë„.
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             _currentBlock.GetComponent<Block>().RotateNext();
@@ -244,9 +272,25 @@ public class Player : MonoBehaviour
             StopCoroutine(_forceRotationCoroutine);
             _forceRotationCoroutine = null;
         }
-        _isRotatable = true; // ºí·°À» ¹Ù²Ù´Â ¼ø°£ ´Ù½Ã È°¼ºÈ­
+        _isRotatable = true; // ë¸”ëŸ­ì„ ë°”ê¾¸ëŠ” ìˆœê°„ ë‹¤ì‹œ í™œì„±í™”
+        _isMovable = true;
+        if(_isBubble)
+        {
+            // ê¸°íš ì˜ë„ëŠ” ì•„ë‹Œë° ì¼ë‹¨ ì˜ˆì™¸ì²˜ë¦¬
+            CurrentVelocity = BlockFixedVelocity;
 
-        if(NextBlock == null)
+            var bubbleObject = _currentBlock.transform.Find("Bubble(Clone)");
+            if (bubbleObject != null)
+            {
+                bubbleObject.GetComponentInChildren<SpriteRenderer>().sprite = BubblePopSprite;
+                BubblePopSound.Play();
+                StartCoroutine(RemoveBubble(bubbleObject.gameObject));
+            }
+
+            _isBubble = false;
+        }
+
+        if (NextBlock == null)
         {
             NextBlock = PickBlock();
             Indicator.SetActive(true);
@@ -290,13 +334,39 @@ public class Player : MonoBehaviour
                         _currentBlock.GetComponent<Block>().AddBlockEffect(VineBlockSprite, 1.2f);
                         _currentBlock.GetComponent<Block>().IsVineBlock = true;
                     }
+                    else
+                    {
+                        prob = Random.Range(1, 1000000);
+                        if (prob - BubbleProbability <= 0)
+                        {
+                            var bubbleGameObject = Instantiate(BubbleObject, _currentBlock.transform);
+                            bubbleGameObject.transform.localPosition = new Vector3(0, 0, -2);
+                            var col = _currentBlock.GetComponent<Collider2D>();
+                            var offset = col.offset;
+                            if (col is PolygonCollider2D)
+                            {
+                                offset.y += 0.5f;
+                            }
+                            bubbleGameObject.transform.localPosition = new Vector3(offset.x, offset.y, -2.0f);
+                            BubbleSound.Play();
+                            _isRotatable = false;
+                            _isMovable = false;
+
+                            _bubbleMoveDelay = Random.Range(BubbleMinDelay, BubbleMaxDelay);
+                            _bubbleElapsed = 0.0f;
+                            _bubbleStartXPos = bubbleGameObject.transform.position.x;
+                            _bubbleMoveXPos = _bubbleStartXPos + (-4.0f + (0.5f * Random.Range(0, 16))); // 0.5ì”© ì›€ì§ì´ë„ë¡
+                            CurrentVelocity = BubbleFixedVelocity;
+                            _isBubble = true;
+                        }
+                    }
                 }
                 break;
         }
 
         if (++_blockCount % 10 == 0)
         {
-            BlockFixedVelocity += BlockVelocityIncrease;
+            _increasedVelocity += BlockVelocityIncrease;
         }
     }
 
@@ -310,11 +380,11 @@ public class Player : MonoBehaviour
     {
         if(++_currentFrame % CalcFloorPerFrame == 0)
         {
-            int layerMask = LayerMask.GetMask("StackBlock");  // Player ·¹ÀÌ¾î¸¸ Ãæµ¹ Ã¼Å©ÇÔ
+            int layerMask = LayerMask.GetMask("StackBlock");  // Player ë ˆì´ì–´ë§Œ ì¶©ëŒ ì²´í¬í•¨
             var hit = Physics2D.BoxCast(transform.position, new Vector2(6, 1), 0, Vector2.down, 100.0f, layerMask);
             if(hit.collider != null)
             {
-                _currentFloor = (int)(hit.point.y - 3 + 0.1f); // ¿ÀÂ÷ ¹«½ÃÇÏ±âÀ§ÇØ 0.1 ´õÇÔ
+                _currentFloor = (int)(hit.point.y - 3 + 0.1f); // ì˜¤ì°¨ ë¬´ì‹œí•˜ê¸°ìœ„í•´ 0.1 ë”í•¨
 
                 _destPositionY = hit.point.y + MarginDistance;
             }
@@ -411,6 +481,44 @@ public class Player : MonoBehaviour
             }
 
             yield return new WaitForSeconds(0.07f);
+        }
+    }
+
+    IEnumerator RemoveBubble(GameObject bubbleObject)
+    {
+        yield return new WaitForSeconds(0.6f);
+
+        Destroy(bubbleObject);
+    }
+
+    private void OnEffect()
+    {
+        if(_isBubble)
+        {
+            if(_bubbleElapsed >= _bubbleMoveDelay)
+            {
+                _isBubble = false;
+                _isRotatable = true;
+                _isMovable = true;
+                CurrentVelocity = BlockFixedVelocity;
+
+                var bubbleObject = _currentBlock.transform.Find("Bubble(Clone)");
+                if (bubbleObject != null)
+                {
+                    bubbleObject.GetComponentInChildren<SpriteRenderer>().sprite = BubblePopSprite;
+                    BubblePopSound.Play();
+                    StartCoroutine(RemoveBubble(bubbleObject.gameObject));
+                }
+
+                return;
+            }
+
+            float t = _bubbleElapsed / _bubbleMoveDelay;
+            float destX = Mathf.Lerp(_bubbleStartXPos, _bubbleMoveXPos, t);
+            _currentBlock.transform.position = new Vector3(destX, _currentBlock.transform.position.y, _currentBlock.transform.position.z);
+            var blockCollider = _currentBlock.GetComponent<Collider2D>();
+            Indicator.transform.position = new Vector3(destX + blockCollider.offset.x, Indicator.transform.position.y, Indicator.transform.position.z);
+            _bubbleElapsed += Time.deltaTime;
         }
     }
 }

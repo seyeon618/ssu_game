@@ -46,7 +46,7 @@ public class Block : MonoBehaviour
     {
         if (_isControlByPlayer)
         {
-            _rigidbody.velocity = new Vector2(0.0f, -_player.BlockFixedVelocity);
+            _rigidbody.velocity = new Vector2(0.0f, -_player.CurrentVelocity);
         }
     }
 
