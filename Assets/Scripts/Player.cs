@@ -105,6 +105,8 @@ public class Player : MonoBehaviour
     private float _bubbleMoveDelay = 0;
     private bool _isBubble = false;
 
+    private bool _isGameOver = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -246,6 +248,11 @@ public class Player : MonoBehaviour
 
     void HandleKeyboardInput()
     {
+        if(_isGameOver)
+        {
+            return;
+        }
+
         HandleFunctionKey();
 
         HandleMove();
@@ -288,6 +295,11 @@ public class Player : MonoBehaviour
             }
 
             _isBubble = false;
+        }
+
+        if(_isGameOver)
+        {
+            return;
         }
 
         if (NextBlock == null)
@@ -450,11 +462,22 @@ public class Player : MonoBehaviour
         int nowRemoveHeartIndex = _currentHP;
         var childs = _playerHUD.Children();
         List<VisualElement> elements = new List<VisualElement>(childs);
-        var removeElement = elements[nowRemoveHeartIndex - 1];
-        removeElement.style.backgroundImage = EmptyHeartImage;
+        if(nowRemoveHeartIndex >= 1)
+        {
+            var removeElement = elements[nowRemoveHeartIndex - 1];
+            removeElement.style.backgroundImage = EmptyHeartImage;
+        }
         if (--_currentHP <= 0)
         {
-            // OnGameOver
+            if(_isGameOver == false)
+            {
+                _isGameOver = true;
+
+                Destroy(_currentBlock);
+                
+
+                GameObject.Find("StageManager").GetComponent<StageManager>().OnGameOver();
+            }
         }
     }
 

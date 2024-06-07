@@ -19,6 +19,8 @@ public class StageManager : MonoBehaviour
     private Label _elapsedTimeLabel;
     private Label _goalLeftFloorLabel;
     private Label _currentFloorLabel;
+
+    private bool _isRestartable = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -100,5 +102,44 @@ public class StageManager : MonoBehaviour
 
             return;
         }
+
+        if(_isRestartable)
+        {
+            if(Input.anyKey)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+        }
+    }
+
+    public void OnGameOver()
+    {
+        StartCoroutine(RunUIGameOver());
+    }
+
+    IEnumerator RunUIGameOver()
+    {
+        UI.rootVisualElement.Q<VisualElement>("GameUI").style.opacity = new StyleFloat(0.0f);
+
+        for (int i = 0; i < 210; ++i)
+        {
+            //List<VisualElement> elements = new List<VisualElement>(UI.rootVisualElement.Children());
+            //elements[0].style.backgroundColor = new StyleColor(new Color(0, 0, 0, i));
+            UI.rootVisualElement.style.backgroundColor = new StyleColor(new Color(0, 0, 0, Mathf.Lerp(0, 0.7f, i / 210.0f)));
+            yield return new WaitForFixedUpdate();
+        }
+
+        var gameoverVisualElement = UI.rootVisualElement.Q<VisualElement>("GameOver");
+        gameoverVisualElement.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+
+        var maintextElement = gameoverVisualElement.Q<VisualElement>("MainText");
+
+        for (int i = 0; i < 120; ++i)
+        {
+            maintextElement.style.opacity = new StyleFloat(Mathf.Lerp(0, 1, i / 120.0f));
+            yield return new WaitForFixedUpdate();
+        }
+
+        _isRestartable = true;
     }
 }
