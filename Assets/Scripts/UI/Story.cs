@@ -75,6 +75,6 @@ public class Story : MonoBehaviour
         // NextButton 클릭 시 실행할 로직
         Debug.Log("NextButton clicked");
         // 예: 다음 씬으로 전환
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Name");
     }
 }
