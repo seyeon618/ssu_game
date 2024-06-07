@@ -167,6 +167,10 @@ public class StageManager : MonoBehaviour
     {
         int elapsedTime = ((int)_elapsedTime) - WaitCount;
         RankingManager.Instance.UpdateRanking(GamePlayer.Stage, elapsedTime);
+        string todayDate = System.DateTime.Now.ToString("yyyy. MM. dd");
+        PlayerPrefs.SetInt($"{GamePlayer.Stage}Completed", 1);
+        PlayerPrefs.SetString($"{GamePlayer.Stage}CompletionDate", todayDate);
+
         GamePlayer.OnStageClear();
         StartCoroutine(RunUIStageClear(elapsedTime));
     }

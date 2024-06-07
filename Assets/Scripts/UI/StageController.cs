@@ -5,9 +5,9 @@ using UnityEngine.UIElements;
 public class StageController : MonoBehaviour
 {
     private VisualElement root;
-    private Button stage1;
-    private Button stage2;
-    private Button stage3;
+    private VisualElement stage1;
+    private VisualElement stage2;
+    private VisualElement stage3;
     private Button prevButton;
 
     private void OnEnable()
@@ -24,9 +24,9 @@ public class StageController : MonoBehaviour
             return;
         }
 
-        stage1 = root.Q<Button>("Stage1Button");
-        stage2 = root.Q<Button>("Stage2Button");
-        stage3 = root.Q<Button>("Stage3Button");
+        stage1 = root.Q<VisualElement>("Stage1");
+        stage2 = root.Q<VisualElement>("Stage2");
+        stage3 = root.Q<VisualElement>("Stage3");
         prevButton = root.Q<Button>("PrevButton");
 
         if (stage1 == null || stage2 == null || stage3 == null)
@@ -35,10 +35,13 @@ public class StageController : MonoBehaviour
             return;
         }
 
-        stage1.clicked += Stage1_clicked;
-        stage2.clicked += Stage2_clicked;
-        stage3.clicked += Stage3_clicked;
+        var stage1Button = root.Q<Button>("Stage1Button");
+        var stage2Button = root.Q<Button>("Stage2Button");
+        var stage3Button = root.Q<Button>("Stage3Button");
 
+        stage1Button.clicked += Stage1_clicked;
+        stage2Button.clicked += Stage2_clicked;
+        stage3Button.clicked += Stage3_clicked;
 
         if (prevButton != null)
         {

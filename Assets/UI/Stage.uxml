@@ -5,18 +5,21 @@
             <ui:VisualElement name="Stages" style="flex-direction: row; justify-content: space-around; align-items: center; width: 80%; height: 250px; margin-top: 70px;">
                 <ui:VisualElement name="Stage1" class="stageButton bg_inclear">
                     <ui:VisualElement name="Stamp" class="stamp hidden" />
-                    <ui:Button display-tooltip-when-elided="true" name="Stage1Button" style="width: 100%; height: 100%; background-image: resource(&apos;UI/Stage/stage1&apos;); -unity-text-outline-color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0);" />
-                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="-unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; display: none;" />
+                    <ui:VisualElement name="Text" style="background-image: resource(&apos;UI/Stage/stage1&apos;); width: 100%; height: 100%; -unity-background-scale-mode: stretch-to-fill;" />
+                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="-unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; display: none; -unity-font-definition: initial; -unity-font: resource(&apos;NanumGothicBold&apos;);" />
+                    <ui:Button text="&#10;" display-tooltip-when-elided="true" name="Stage1Button" style="position: absolute; width: 100%; height: 100%; opacity: 0;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Stage2" class="stageButton bg_inclear">
                     <ui:VisualElement name="Stamp" class="stamp hidden" />
-                    <ui:Button display-tooltip-when-elided="true" name="Stage2Button" style="width: 100%; height: 100%; background-image: resource(&apos;UI/Stage/stage2&apos;); -unity-text-outline-color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0);" />
-                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="top: 126px; left: 7px; -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                    <ui:VisualElement name="Text" style="background-image: resource(&apos;UI/Stage/stage2&apos;); width: 100%; height: 100%; -unity-background-scale-mode: stretch-to-fill;" />
+                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="top: 240px; left: 0; -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: initial; -unity-font: resource(&apos;NanumGothicBold&apos;);" />
+                    <ui:Button text="&#10;" display-tooltip-when-elided="true" name="Stage2Button" style="position: absolute; width: 100%; height: 100%; opacity: 0;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Stage3" class="stageButton bg_inclear">
                     <ui:VisualElement name="Stamp" class="stamp hidden" />
-                    <ui:Button display-tooltip-when-elided="true" name="Stage3Button" style="width: 100%; height: 100%; background-image: resource(&apos;UI/Stage/stage3&apos;); -unity-text-outline-color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0);" />
-                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="-unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                    <ui:VisualElement name="Text" style="background-image: resource(&apos;UI/Stage/stage3&apos;); width: 100%; height: 100%; -unity-background-scale-mode: stretch-to-fill;" />
+                    <ui:Label text="완료 : 2024. 06. 06" name="CompletionDate" class="completionDate hidden" style="-unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: initial; -unity-font: resource(&apos;NanumGothicBold&apos;);" />
+                    <ui:Button text="&#10;" display-tooltip-when-elided="true" name="Stage3Button" style="position: absolute; width: 100%; height: 100%; opacity: 0;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="ComingSoon" class="stageButton bg_inclear">
                     <ui:VisualElement name="Stamp" class="stamp hidden" />
