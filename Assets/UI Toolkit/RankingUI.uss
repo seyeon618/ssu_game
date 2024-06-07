@@ -86,8 +86,8 @@
 .PlayerName {
     font-size: 40px;
     color: rgb(0, 0, 0);
-    -unity-font: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=5731770129ba5b3449fc21e1e5290dc1&type=3#NotInter-Regular');
     -unity-font-definition: initial;
+    -unity-font: resource('NanumGothicBold');
     padding-top: 0;
     padding-right: 242px;
     padding-bottom: 0;

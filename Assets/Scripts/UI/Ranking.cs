@@ -62,22 +62,26 @@ public class Ranking : MonoBehaviour
         // Clear previous rankings
         rankingList.Clear();
 
+        StageType eStage = (StageType)stage;
+
+        int rankIndex = 1;
         // Add new rankings based on the stage
-        for (int i = 1; i <= 10; i++)
+        foreach(var rank in RankingManager.Instance.Rankings[eStage])
         {
             var rankingItem = new VisualElement();
             rankingItem.AddToClassList("RankingItem");
 
-            var rankLabel = new Label(i.ToString());
+            var rankLabel = new Label(rankIndex++.ToString());
             rankLabel.AddToClassList("RankNumber");
 
-            var playerName = new Label("NAME" + i);
+            var playerName = new Label(rank.Value);
             playerName.AddToClassList("PlayerName");
-
+            playerName.style.unityFontDefinition = new StyleFontDefinition();
+            playerName.style.unityFontStyleAndWeight = new StyleEnum<FontStyle>();
             var timeContainer = new VisualElement();
             timeContainer.AddToClassList("TimeContainer");
 
-            var timeLabel = new Label(Random.Range(10, 30).ToString() + "sec");
+            var timeLabel = new Label($"{rank.Key} sec");
             timeLabel.AddToClassList("TimeLabel");
 
             timeContainer.Add(timeLabel);

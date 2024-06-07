@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6499993dab2482e9cc67b13765fe0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TextFont: {fileID: 12800000, guid: fc7b9a62c790b4168aa0946f7e5caef9, type: 3}
 --- !u!1 &323195031
 GameObject:
   m_ObjectHideFlags: 0
