@@ -14,6 +14,14 @@ public class MenuController : MonoBehaviour
     private bool isStageButtonShaking = false;
     private bool isRankingButtonShaking = false;
 
+    private void Awake()
+    {
+        if (!UISoundManager.Instance.bgmSource.isPlaying)
+        {
+            UISoundManager.Instance.PlayBGM();
+        }
+    }
+
     private void OnEnable()
     {
         var root = uiDocument.rootVisualElement;

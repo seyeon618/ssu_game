@@ -23,9 +23,8 @@ public class UISoundManager : MonoBehaviour
         }
     }
 
-    public void PlayBGM(AudioClip bgm)
+    public void PlayBGM()
     {
-        bgmSource.clip = bgm;
         bgmSource.loop = true;
         bgmSource.Play();
     }
