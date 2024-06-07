@@ -492,10 +492,18 @@ public class Player : MonoBehaviour
         {
             if(_isGameOver == false)
             {
+                switch (Stage)
+                {
+                    case StageType.Tutorial:
+                        {
+                            SetupHP(1); // 튜토리얼은 죽지 않는다.
+                        }
+                        return; // 튜토리얼은 게임오버 처리 무시
+                }
+
+                GameObject.Find("StageManager").GetComponent<StageManager>().OnGameOver();
                 _isGameOver = true;
                 Destroy(_currentBlock);
-                
-                GameObject.Find("StageManager").GetComponent<StageManager>().OnGameOver();
             }
         }
     }
