@@ -21,6 +21,7 @@ public class Block : MonoBehaviour
 
     [Header("Sounds")]
     public AudioSource HitBlockSound;
+    public AudioSource RotationSound;
 
     public bool IsVineBlock { get; set; }
 
@@ -98,6 +99,8 @@ public class Block : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90 * _currentRotation));
 
         _player.SetIndicatorWidth(CurrentWidth, transform.position.x + CurrentOffset);
+
+        RotationSound.Play();
     }
 
     public void OnEscapeGameArea()
