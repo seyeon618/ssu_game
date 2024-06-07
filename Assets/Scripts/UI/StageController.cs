@@ -56,18 +56,21 @@ public class StageController : MonoBehaviour
     private void Stage1_clicked()
     {
         UISoundManager.Instance.PlayGameStart();
+        UISoundManager.Instance.StopBGM();
         SceneManager.LoadScene("Stage1");
     }
 
     private void Stage2_clicked()
     {
         UISoundManager.Instance.PlayGameStart();
+        UISoundManager.Instance.StopBGM();
         SceneManager.LoadScene("Stage2");
     }
 
     private void Stage3_clicked()
     {
         UISoundManager.Instance.PlayGameStart();
+        UISoundManager.Instance.StopBGM();
         SceneManager.LoadScene("Stage3");
     }
 
