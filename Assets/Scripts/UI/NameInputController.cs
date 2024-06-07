@@ -6,18 +6,23 @@ public class NameInputController : MonoBehaviour
 {
     public UIDocument uiDocument;
 
+    private Button nextButton;
+    private TextField nameInput;
     void Start()
     {
         var root = uiDocument.rootVisualElement;
-        var nameInput = root.Q<TextField>("NameInput");
-        var nextButton = root.Q<Button>("NextButton");
+        nameInput = root.Q<TextField>("NameInput");
+        nextButton = root.Q<Button>("NextButton");
 
         nextButton.clicked += OnNextButtonClick;
+        nextButton.RegisterCallback<MouseEnterEvent>(OnButtonHover);
+        nextButton.RegisterCallback<MouseLeaveEvent>(OnButtonLeave);
         nameInput.RegisterCallback<KeyDownEvent>(OnEnterPress);
     }
 
     private void OnNextButtonClick()
     {
+        UISoundManager.Instance.PlayButtonClick();
         LoadMainMenuScene();
     }
 
@@ -35,5 +40,15 @@ public class NameInputController : MonoBehaviour
         RankingManager.Instance.SetUserName(nameInput.value);
 
         SceneManager.LoadScene("MainMenu");
+    }
+    private void OnButtonHover(MouseEnterEvent evt)
+    {
+        UISoundManager.Instance.PlayButtonHover();
+        nextButton.style.scale = new Scale(new Vector2(1.2f, 1.2f));
+    }
+
+    private void OnButtonLeave(MouseLeaveEvent evt)
+    {
+        nextButton.style.scale = new Scale(new Vector2(1, 1));
     }
 }
